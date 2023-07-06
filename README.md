@@ -1,6 +1,6 @@
 # Activejob::Filtering
 
-This is an [ActiveJob](https://github.com/rails/rails/tree/master/activejob) extension that filter arguments in ActiveJob's log output.
+This is an [ActiveJob](https://github.com/rails/rails/tree/master/activejob) extension that allows to filter arguments in ActiveJob's log output.
 
 Version: `0.1.0`. Tested on ruby `3.0.1`, rails: `~> 7.0.5`, activejob: `7.0.5`.
 
@@ -76,7 +76,7 @@ Output example:
 [ActiveJob] [MyJob] [ae3421c0-dcc7-4c3b-a741-ba06d8d68bf3] Performing MyJob (Job ID: ae3421c0-dcc7-4c3b-a741-ba06d8d68bf3) from Inline(default) enqueued at 2023-07-05T13:41:31Z WITH ARGS: {:password=>\"[FILTERED]\", :param_one=>\"some-param\"}
 ```
 
-> IMPORTANT THING: gem work only with hash based args.
+> IMPORTANT THING: gem works only with hash based args.
 
 Invalid format:
 

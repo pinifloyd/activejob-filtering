@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['hanchar.sergey@gmail.com']
 
   spec.summary       = %q{Mask arguments from ActiveJob.}
-  spec.description   = %q{This is ActiveJob extension wich mask arguments.}
+  spec.description   = %q{This is ActiveJob's extension for arguments masking.}
   spec.homepage      = 'https://github.com/pinifloyd/activejob-filtering'
   spec.license       = 'MIT'
 

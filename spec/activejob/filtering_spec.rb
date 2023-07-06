@@ -16,13 +16,13 @@ RSpec.describe ActiveJob::Filtering do
   end
 
   def output
-    output = @io.tap(&:rewind).read
+    @io.tap(&:rewind).read
   end
 
   context 'mailer' do
     it 'log empty string if args is empty' do
       TestJob.perform_later(
-        'ApplicationMailer', 'send_hash', 'eliver_now', { args: [] }
+        'ApplicationMailer', 'send_hash', 'deliver_now', { args: [] }
       )
       expect(output).not_to match(/\[FILTERED\]/)
       expect(output).not_to match(/\[ERROR: WRONG FORMAT\] CANNOT FILTER ARGS/)
@@ -30,9 +30,7 @@ RSpec.describe ActiveJob::Filtering do
 
     it 'log args if broken format' do
       TestJob.perform_later(
-        'ApplicationMailer', 'send_hash', 'eliver_now', { args: [
-          'password', 'login', 'phone', 'full-name'
-        ] }
+        'ApplicationMailer', 'send_hash', 'deliver_now', { args: %w[password login phone full-name] }
       )
       expect(output).not_to match(/\[FILTERED\]/)
       expect(output).to match(/\[ERROR: WRONG FORMAT\] CANNOT FILTER ARGS/)
@@ -40,7 +38,7 @@ RSpec.describe ActiveJob::Filtering do
 
     it 'log filtered args' do
       TestJob.perform_later(
-        'ApplicationMailer', 'send_hash', 'eliver_now', { args: [
+        'ApplicationMailer', 'send_hash', 'deliver_now', { args: [
           { password: 'my-password', login: 'my-login' }
         ] }
       )
