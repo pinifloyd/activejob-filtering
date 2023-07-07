@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'active_job'
+require 'action_mailer'
 require 'activejob/filtering'
 
 RSpec.configure do |config|
@@ -15,3 +16,4 @@ RSpec.configure do |config|
 end
 
 ActiveJob::Base.queue_adapter = :inline
+ActionMailer::Base.delivery_method = :test

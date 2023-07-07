@@ -1,53 +1,25 @@
+require_relative './action_mailer.rb'
+require_relative './job.rb'
+
 module ActiveJob
   module Filtering
     class Arguments
-      def initialize(arguments)
-        @arguments = arguments.dup
+      def initialize(job)
+        @job = job
       end
 
       def call
-        return if arguments.blank?
-
-        args, mailer = extract_mailer_arguments
-        return args if mailer
-
-        extract_job_arguments
+        case
+        when ActiveJob::Filtering::ActionMailer.action_mailer?(job)
+          ActiveJob::Filtering::ActionMailer::Arguments.new(job).call
+        else
+          ActiveJob::Filtering::Job::Arguments.new(job).call
+        end
       end
 
       private
 
-      attr_accessor :arguments
-
-      # Mailer arguments look like:
-      #
-      # ['MailerClass', 'method_name', 'deliver_now', { :args=>[...] }]
-      def extract_mailer_arguments
-        args = nil
-        mailer = false
-
-        arguments.each do |argument|
-          next unless argument.is_a?(Hash)
-          next unless argument.has_key?(:args)
-
-          if argument[:args].first.is_a?(Hash)
-            args = argument[:args].first
-          else
-            args = argument[:args]
-          end
-
-          mailer = true
-          break
-        end
-
-        [args, mailer]
-      end
-
-      def extract_job_arguments
-        return arguments if arguments.size > 1
-        return arguments unless arguments.first.is_a?(Hash)
-
-        arguments.first
-      end
+      attr_reader :job
     end
   end
 end

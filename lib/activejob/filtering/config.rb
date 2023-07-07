@@ -1,36 +1,37 @@
 module ActiveJob
   module Filtering
     module Config
-      attr_writer :settings_key
-      attr_writer :hide_arguments
-      attr_writer :filter_class
-      attr_writer :filter_fields
+      attr_writer :filter_strategy,
+                  :filter_keys,
+                  :filter_class,
+                  :filter_settings_key
 
-      def settings_key
-        @settings_key || :active_job
-      end
-
-      def hide_arguments
-        !!@hide_arguments
+      # [show | hide | filter]
+      def filter_strategy
+        @filter_strategy || :show
       end
 
       def filter_class
-        @filter_class || ActiveSupport::ParameterFilter
+        @filter_class || ActionDispatch::Http::ParameterFilter
       end
 
-      def filter_fields
-        return @filter_fields if @filter_fields.present?
-        return Rails.application.config.filter_parameters if defined?(Rails)
-        %i[passw secret token _key crypt salt certificate otp ssn]
+      def filter_keys
+        @filter_keys || Rails.application.config.filter_parameters
       end
 
-      def to_settings
+      def filter_settings_key
+        @filter_settings_key || :active_job
+      end
+
+      def to_h
         {
-          hide_arguments: hide_arguments,
+          filter_strategy: filter_strategy,
           filter_class: filter_class,
-          filter_fields: filter_fields
+          filter_keys: filter_keys,
+          filter_settings_key: filter_settings_key
         }
       end
+      alias_method :to_hash, :to_h
 
       def configure
         yield(self)
