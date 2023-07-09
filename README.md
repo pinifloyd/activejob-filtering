@@ -2,7 +2,7 @@
 
 This is an [ActiveJob](https://github.com/rails/rails/tree/master/activejob) extension that allows to filter arguments in ActiveJob's log output.
 
-Version: `5.2.0`. Rails: `~> 5`.
+Version: `5.2.1`. Rails: `~> 5`.
 
 ## If you using Rails >= 6.1
 
@@ -26,7 +26,7 @@ And PR: https://github.com/springerigor/rails/commit/02084de54d4b6c0c5861b33019a
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'activejob-filtering', '5.2.0', github: 'pinifloyd/activejob-filtering'
+gem 'activejob-filtering', '5.2.1', github: 'pinifloyd/activejob-filtering'
 ```
 
 And then execute:
@@ -108,3 +108,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+## TODO
+
+- Add filter_function (proc or lambda).
