@@ -2,6 +2,6 @@
 
 module ActiveJob
   module Filtering
-    VERSION = '0.1.0'
+    VERSION = '5.2.0'
   end
 end
